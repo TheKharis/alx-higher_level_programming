@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# 2-print_alphabet.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+"""Print the alphabet in lowercase, not followed by a new line."""
 for letter in range(97, 123):
-    if letter != 101 and letter != 113:
-        print("{:c}".format(letter), end="")
+    print("{}".format(chr(letter)), end="")
