@@ -4,32 +4,37 @@
 import MySQLdb
 import sys
 
-# Get command line arguments
 if __name__ == '__main__':
+
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
     database_name = sys.argv[3]
 
-# Connect to MySQL server
-try:
-    db = MySQLdb.connect(
-            host="localhost",
-            port=3306,
-            user=mysql_username,
-            passwd=mysql_password,
-            db=database_name)
+    # connect to database
+    try:
+        db = MySQLdb.connect(host="localhost",
+                             user=mysql_username,
+                             passwd=mysql_password,
+                             db=database_name,
+                             port=3306)
+        # create cursor
+        cur = db.cursor()
+    except MySQLdb.Error as e:
+        print(f"MySQL Error {e.args[0]}: {e.args[1]}")
+        sys.exit(1)
 
-# Create a cursor object to execute queries
-cursor = db.cursor()
+    try:
+        query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+        # Execute query
+        cur.execute(query)
+        rows = cur.fetchall()
+    except MySQLdb.Error as e:
+        print(f"MySQL Error {e.args[0]} : {e.args[1]}")
+        sys.exit(1)
+    # print results
+    for row in rows:
+        print(row)
 
-# Execute the query to get all states
-cursor.execute("""SELECT * FROM states WHERE name LIKE BINARY 'N%'
-                    ORDER BY states.id""")
-
-# Fetch all rows and print them
-states = cursor.fetchall()
-for state in states:
-    print(state)
-
-# Close the database connection
-db.close()
+    # close all connections
+    cur.close()
+    db.close()
