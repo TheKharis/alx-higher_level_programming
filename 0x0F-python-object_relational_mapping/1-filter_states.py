@@ -5,9 +5,9 @@ import MySQLdb
 import sys
 
 # Get command line arguments
-mysql_user = sys.argv[1]
-mysql_pass = sys.argv[2]
-db_name = sys.argv[3]
+mysql_username = sys.argv[1]
+mysql_password = sys.argv[2]
+database_name = sys.argv[3]
 
 # Connect to MySQL server
 db = MySQLdb.connect(
@@ -31,4 +31,3 @@ for state in states:
 
 # Close the database connection
 db.close()
-cursor.close()
