@@ -24,9 +24,10 @@ if __name__ == '__main__':
 
     # Execute query search
     try:
-        sql_query = "SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY id".format(state_name_searched)
+        query = """SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY
+        id""".format(state_name_searched)
 
-        cur.execute(sql_query)
+        cur.execute(query)
 
         results = cur.fetchall()
     except MySQLdb.Error as e:

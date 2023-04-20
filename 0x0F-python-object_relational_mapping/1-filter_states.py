@@ -24,7 +24,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
     try:
-        query = """SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY states.id"""
+        query = """SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY
+        states.id"""
         # Execute query
         cur.execute(query)
         rows = cur.fetchall()
