@@ -20,17 +20,17 @@ if __name__ == '__main__':
         # create cursor
         cur = db.cursor()
     except MySQLdb.Error as e:
-        print(f"MySQL Error {e.args[0]}: {e.args[1]}")
+        print(f"MySQLdb Error {e.args[0]}: {e.args[1]}")
         sys.exit(1)
 
     try:
-        query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+        query = """SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY states.id"""
         # Execute query
         cur.execute(query)
         rows = cur.fetchall()
     except MySQLdb.Error as e:
-        print(f"MySQL Error {e.args[0]} : {e.args[1]}")
-        sys.exit(1)
+        print(f"MySQLdb Error {e.args[0]} : {e.args[1]}")
+
     # print results
     for row in rows:
         print(row)
