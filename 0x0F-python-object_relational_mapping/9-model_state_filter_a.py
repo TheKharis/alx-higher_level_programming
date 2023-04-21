@@ -1,11 +1,14 @@
 #!/usr/bin/python3
-"""A script that lists all State objects from the database hbtn_0e_6_usa"""
+"""
+A script that lists all State objects that contain the letter a from the
+database hbtn_0e_6_usa
+
+"""
 
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
-
 
 if __name__ == "__main__":
     # Setup engine and session
@@ -21,11 +24,12 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
 
     # Execute query
-    state = session.query(State).order_by(State.id).first()
-    if state is None:
-        print("Nothing")
+    states = session.query(State).filter(State.name.like('%a%')).all()
+    if not states:
+        print('Nothing')
     else:
-        print("{}: {}".format(state.id, state.name))
+        for state in states:
+            print('{}: {}'.format(state.id, state.name))
 
     # Close the session
     session.close()
