@@ -11,9 +11,11 @@ import requests
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         sys.exit("Usage: {} username token".format(sys.argv[0]))
-    url = "http://api.github.com/user"
+
+    url = "https://api.github.com/user"
     username = sys.argv[1]
     token = sys.argv[2]
+
     resp = requests.get(url, auth=(username, token))
 
     if resp.status_code != 200:
