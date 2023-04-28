@@ -14,12 +14,12 @@ if __name__ == "__main__":
     url = f"https://api.github.com/repos/{owner}/{repo}/commits"
 
     resp = requests.get(url)
+    commits = resp.json()
 
-    if resp.status_code == 200:
-        commits = resp.json()
-        for commit in commits:
-            sha = commit["sha"]
-            author_name = commit["commit"]["author"]["name"]
-    else:
-
-        print(f"Error retrieving commits: {resp.status_code}")
+    try:
+        for i in range(10):
+            sha = commits[i]["sha"]
+            author_name = commits[i]["commit"]["author"]["name"]
+            print("{}: {}".format(sha, author_name))
+    except IndexError:
+        pass
