@@ -12,7 +12,7 @@ from model_state import Base, State
 
 if __name__ == "__main__":
     # Setup engine and session
-    engine = create_engine("mysql+mysqldb://{}:{}@localhost:3306/{}".
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}".
                            format(sys.argv[1], sys.argv[2], sys.argv[3]),
                            pool_pre_ping=True)
 
@@ -24,12 +24,6 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
 
     # Execute query
-    states = session.query(State).filter(State.name.like('%a%')).all()
-    if not states:
-        print('Nothing')
-    else:
-        for state in states:
-            print('{}: {}'.format(state.id, state.name))
-
-    # Close the session
-    session.close()
+    for state in session.query(State).order_by(State.id):
+        if "a" in state.name:
+            print("{}: {}".format(state.id, state.name))
